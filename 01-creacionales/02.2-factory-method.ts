@@ -24,7 +24,7 @@
       el prompt para seleccionar el tipo de reporte.
  */
 
-import { COLORS } from '../helpers/colors.ts';
+import { COLORS } from "../helpers/colors.ts";
 
 // 1. Definir la interfaz Report
 interface Report {
@@ -37,17 +37,24 @@ interface Report {
 class SalesReport implements Report {
   // TODO: implementar el método e imprimir en consola:
   // 'Generando reporte de ventas...'
+  generate(): void {
+    console.log("%cGenerando reporte de ventas...", COLORS.purple);
+  }
 }
 
 class InventoryReport implements Report {
   // TODO: implementar el método e imprimir en consola:
   // 'Generando reporte de inventario...'
+  generate(): void {
+    console.log("%cGenerando reporte de inventario...", COLORS.purple);
+  }
 }
 
-// 3. Clase Base ReportFactory con el Método Factory
+// 3. Clase Base ReportFactory con el método Factory
 
 abstract class ReportFactory {
-  abstract createReport(): Report;
+  /* Protected solo puede ser alcanzado por clases hijas */
+  protected abstract createReport(): Report;
 
   generateReport(): void {
     const report = this.createReport();
@@ -59,13 +66,13 @@ abstract class ReportFactory {
 
 class SalesReportFactory extends ReportFactory {
   createReport(): Report {
-    throw new Error('Method not implemented.');
+    return new SalesReport();
   }
 }
 
 class InventoryReportFactory extends ReportFactory {
   createReport(): Report {
-    throw new Error('Method not implemented.');
+    return new InventoryReport();
   }
 }
 
@@ -75,17 +82,22 @@ function main() {
   let reportFactory: ReportFactory;
 
   const reportType = prompt(
-    '¿Qué tipo de reporte deseas? %c(sales/inventory)',
-    COLORS.red
+    "¿Qué tipo de reporte deseas? (sales/inventory)",
   );
 
-  if (reportType === 'sales') {
-    reportFactory = new SalesReportFactory();
-  } else {
-    reportFactory = new InventoryReportFactory();
+  switch (reportType) {
+    case "sales":
+      reportFactory = new SalesReportFactory();
+      break;
+    case "inventario":
+      reportFactory = new InventoryReportFactory();
+      break;
+
+    default:
+      throw new Error("Opcion no valida");
   }
 
-  reportFactory.generateReport();
+  reportFactory.generateReport();  
 }
 
 main();
