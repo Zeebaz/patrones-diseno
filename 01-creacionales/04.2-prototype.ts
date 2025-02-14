@@ -34,7 +34,7 @@ class Pokemon {
     console.log(
       `> ${this.name}\n - Tipo: ${this.type}\n - Nivel: ${
         this.level
-      }\n - Ataques: ${this.attacks.join(", ")}\n`
+      }\n - Ataques: ${this.attacks.join(", ")}\n `
     );
   }
 }
