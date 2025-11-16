@@ -12,6 +12,8 @@
  * https://refactoring.guru/es/design-patterns/abstract-factory
  */
 
+import { COLORS } from "../helpers/colors.ts";
+
 /**
  * !Instrucciones:
  	1.Completen las Clases de Productos:
@@ -41,7 +43,7 @@ interface Engine {
 
 class ElectricCar implements Vehicle {
   assemble(): void {
-    console.log("%cEnsamblando un auto eléctrico", "color: blue");
+    console.log("%cEnsamblando un auto eléctrico", COLORS.red);
   }
   // Implementación del método assemble
   // 'Ensamblando un auto eléctrico'
@@ -49,7 +51,7 @@ class ElectricCar implements Vehicle {
 
 class GasCar implements Vehicle {
   assemble(): void {
-    console.log("%cEnsamblando un auto de combustión", "color: blue");
+    console.log("%cEnsamblando un auto de combustión", COLORS.green);
   }
   // Implementación del método assemble
   // 'Ensamblando un auto de combustión'
@@ -57,7 +59,7 @@ class GasCar implements Vehicle {
 
 class ElectricEngine implements Engine {
   start(): void {
-    console.log("%cArrancando motor eléctrico", "color: blue");
+    console.log("%cArrancando motor eléctrico", COLORS.yellow);
   }
   // Implementación del método start
   // 'Arrancando motor eléctrico'
@@ -65,7 +67,7 @@ class ElectricEngine implements Engine {
 
 class GasEngine implements Engine {
   start(): void {
-    console.log("%cArrancando motor de combustión", "color: blue");
+    console.log("%cArrancando motor de combustión", COLORS.violet);
   }
   // Implementación del método start
   // 'Arrancando motor de combustión'
@@ -111,8 +113,8 @@ function main(factory: VehicleFactory) {
 }
 
 // Pruebas
-console.log("> Creando vehículo eléctrico:");
+console.log("%c> Creando vehículo eléctrico:", COLORS.orange);
 main(new ElectricVehicleFactory());
 
-console.log("\n> Creando vehículo de combustión:");
+console.log("\n%c> Creando vehículo de combustión:", COLORS.orange);
 main(new GasVehicleFactory());

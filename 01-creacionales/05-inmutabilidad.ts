@@ -25,7 +25,7 @@ class CodeEditorState {
     console.log(`
       Content: ${this.content}
       Cursor Position: ${this.cursorPosition}
-      Unsave Changes: ${this.unsaveChanges}
+      Unsaved Changes: ${this.unsaveChanges}
       `);
   }
 

@@ -10,7 +10,7 @@
  * https://refactoring.guru/es/design-patterns/prototype
  */
 
-class Document {
+class DocumentPrototype {
   public title: string;
   private content: string;
   public author: string;
@@ -21,8 +21,8 @@ class Document {
     this.author = author;
   }
 
-  clone(): Document {
-    return new Document(this.title, this.content, this.author);
+  clone(): DocumentPrototype {
+    return new DocumentPrototype(this.title, this.content, this.author);
   }
 
   displayInfo(): void {
@@ -34,7 +34,7 @@ class Document {
 }
 
 function main() {
-  const document1 = new Document("Cotización", "500 dolares", "Author 1");
+  const document1 = new DocumentPrototype("Cotización", "500 dolares", "Author 1");
   console.log({ InstanceaDoc1: document1 });
   document1.displayInfo();
 

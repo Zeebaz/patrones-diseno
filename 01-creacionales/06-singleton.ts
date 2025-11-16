@@ -9,3 +9,72 @@
  *
  * https://refactoring.guru/es/design-patterns/singleton
  */
+
+import { COLORS } from "../helpers/colors.ts";
+
+class DragonBalls {
+  private static instancia: DragonBalls;
+  private ballsCollected: number;
+
+  private constructor() {
+    this.ballsCollected = 0;
+  }
+
+  public static getInstance(): DragonBalls {
+    if (!DragonBalls.instancia) {
+      DragonBalls.instancia = new DragonBalls();
+    }
+    return DragonBalls.instancia;
+  }
+
+  collectBall(): void {
+    if (this.ballsCollected < 7) {
+      this.ballsCollected++;
+      console.log(
+        `%cHas recogido una bola de dragón. Total: ${this.ballsCollected}`,
+        COLORS.yellow
+      );
+      return;
+    }
+    console.log(
+      `%cHas recogido todas las bolas de dragón. Total: ${this.ballsCollected}`,
+      COLORS.green
+    );
+  }
+
+  summonShenlong(): void {
+    if (this.ballsCollected === 7) {
+      console.log(`%c\n¡Has invocado a Shenlong!\n`, COLORS.green);
+      this.ballsCollected = 0;
+      return;
+    }
+    console.log(
+      `%c\nNo tienes suficientes bolas de dragón para invocar a Shenlong. Aun faltan: ${
+        7 - this.ballsCollected
+      } esferas del dragón.\n`,
+      COLORS.red
+    );
+  }
+}
+
+function main() {
+    const gokuDragonBalls = DragonBalls.getInstance();
+
+    gokuDragonBalls.collectBall();
+    gokuDragonBalls.collectBall();
+    gokuDragonBalls.collectBall();
+
+    gokuDragonBalls.summonShenlong();
+
+    const vegetaDragonBalls = DragonBalls.getInstance();
+    vegetaDragonBalls.collectBall();
+    vegetaDragonBalls.collectBall();
+    vegetaDragonBalls.collectBall();
+    vegetaDragonBalls.collectBall();
+
+    gokuDragonBalls.summonShenlong();
+
+    vegetaDragonBalls.summonShenlong();
+}
+
+main();

@@ -1,3 +1,4 @@
+import { COLORS } from '../helpers/colors';
 /**
  * ! Patrón Prototype:
 
@@ -20,6 +21,7 @@ class Pokemon {
     public name: string,
     public type: string,
     public level: number,
+    public color: string,
     public attacks: string[]
   ) {}
 
@@ -27,14 +29,14 @@ class Pokemon {
   clone(): Pokemon {
     // Los ataques deben de evitar pasarse por referencia, es decir, no deben de ser el mismo arreglo.
     // Completar: Debe devolver un nuevo Pokémon con los mismos atributos
-    return new Pokemon(this.name, this.type, this.level, [...this.attacks]);
+    return new Pokemon(this.name, this.type, this.level, this.color, [...this.attacks]);
   }
 
   displayInfo(): void {
     console.log(
-      `> ${this.name}\n - Tipo: ${this.type}\n - Nivel: ${
+      `%c> ${this.name}\n - Tipo: ${this.type}\n - Nivel: ${
         this.level
-      }\n - Ataques: ${this.attacks.join(", ")}\n `
+      }\n - Ataques: ${this.attacks.join(", ")}\n `, this.color
     );
   }
 }
@@ -45,7 +47,7 @@ class Pokemon {
 // 3. Llamar a displayInfo en cada Pokémon para mostrar sus detalles.
 
 // Ejemplo:
-const basePokemon = new Pokemon("Charmander", "Fuego", 1, [
+const basePokemon = new Pokemon("Charmander", "Fuego", 1, COLORS.orange, [
   "Llamarada",
   "Arañazo",
 ]);
@@ -53,6 +55,7 @@ const clone1 = basePokemon.clone();
 clone1.name = "Charmeleon";
 clone1.level = 16;
 clone1.attacks.push("Lanzallamas");
+clone1.color = COLORS.red;
 
 basePokemon.displayInfo(); // Aquí no debe de aparecer "Lanzallamas"
 clone1.displayInfo();
