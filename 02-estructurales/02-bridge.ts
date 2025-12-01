@@ -1,3 +1,4 @@
+import { COLORS } from "../helpers/colors.ts";
 /**
  * ! Patrón Bridge
  * Este patrón nos permite desacoplar una abstracción de su implementación,
@@ -9,3 +10,66 @@
  *
  * https://refactoring.guru/es/design-patterns/bridge
  */
+
+interface Ability {
+  use(): void;
+}
+
+class SwordAttack implements Ability {
+  use(): void {
+    console.log("%cAttacking with a sword!", COLORS.blue);
+  }
+}
+
+class AxeAttack implements Ability {
+  use(): void {
+    console.log("%cAttacking with a axe!", COLORS.red);
+  }
+}
+
+class MagicSpell implements Ability {
+  use(): void {
+    console.log("%cCasting a magic spell!", COLORS.purple);
+  }
+}
+
+abstract class Character {
+  protected ability: Ability;
+
+  constructor(ability: Ability) {
+    this.ability = ability;
+  }
+
+  setAbility(ability: Ability) {
+    this.ability = ability;
+  }
+
+  abstract performAbility(): void;
+}
+
+class Warrior extends Character {
+  override performAbility(): void {
+    console.log("The warrior is ready to fight");
+    this.ability.use();
+  }
+}
+
+class Mage extends Character {
+  override performAbility(): void {
+    console.log("The mage is ready to fight");
+    this.ability.use();
+  }
+}
+
+function main() {
+    const warrior = new Warrior(new SwordAttack());
+    warrior.performAbility();
+
+    warrior.setAbility(new AxeAttack());
+    warrior.performAbility();
+
+    const mage = new Mage(new MagicSpell());
+    mage.performAbility();
+}
+
+main();
